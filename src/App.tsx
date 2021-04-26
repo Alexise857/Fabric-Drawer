@@ -1,25 +1,56 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, {useEffect, useState, useCallback} from "react";
+
+import {fabric} from "fabric";
+
+import "./App.css";
 
 function App() {
+
+  const [canvasInstances, setCanvasInstances] = useState([]);
+  const [canvasIds, setCanvasIds] = useState<string[]>([]);
+  const [canvas, setCanvas] = useState<any | null>(null);
+
+  useEffect(() => {
+    const canvas = new fabric.Canvas("canvas", {
+      backgroundColor: "#050A30",
+    });
+  }, []);
+
+  const addMoreCanvas = () => {
+
+    let content = document.getElementById("app");
+    const newcanvas = document.createElement("canvas");
+    content?.appendChild(newcanvas);
+    let fabricCanvasObj = new fabric.Canvas(newcanvas, {
+      backgroundColor: getRandomColor(),
+    });
+
+    console.log({});
+  };
+
+  function getRandomColor() {
+    let letters = "0123456789ABCDEF".split("");
+    let color = "#";
+    for (let i = 0; i < 6; i++) {
+      color += letters[Math.round(Math.random() * 15)];
+    }
+    return color;
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+      <div className="App">
+        <div id="app">
+          <canvas id="canvas"/>
+        </div>
+
+        <button
+            onClick={() => {
+              addMoreCanvas();
+            }}
         >
-          Learn React
-        </a>
-      </header>
-    </div>
+          Add more canvas
+        </button>
+      </div>
   );
 }
 
