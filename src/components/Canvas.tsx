@@ -23,7 +23,7 @@ function Canvas() {
     const newInstances: Paper[] = [];
     canvasIds.forEach((paperId) => {
       const existingPaperInstance = canvasInstances.find(
-          (paperInstance) => paperInstance.id == paperId
+          (paperInstance) => paperInstance.id === paperId
       );
       if (!existingPaperInstance) {
         const newCanvasInstance = new fabric.Canvas(paperId, {
