@@ -3,6 +3,7 @@ import {CanvasContext} from "../context/CanvasContext";
 import {fabric} from "fabric";
 import "fabric-history";
 import {nanoid} from "nanoid";
+import "./components.style.css"
 
 interface Paper {
   id: string;
@@ -10,10 +11,8 @@ interface Paper {
 }
 
 function Canvas() {
-  const {canvas, setCanvas} = useContext(CanvasContext);
 
-  const [canvasIds, setCanvasIds] = useState<string[]>([nanoid()]);
-  const [canvasInstances, setCanvasInstances] = useState<Paper[]>([]);
+    const {canvas, setCanvas, canvasInstances, setCanvasInstances, canvasIds, setCanvasIds} = useContext(CanvasContext);
 
   useEffect(() => {
     createcanvasInstances();
@@ -50,8 +49,7 @@ function Canvas() {
         );
         //@ts-ignore
         const currentSelectedId = canvas?.id;
-        console.log({selectedInstance});
-        console.log({currentSelectedId});
+
         if (selectedInstance) {
           if (currentSelectedId !== canvasId) {
             //@ts-ignore
@@ -85,18 +83,17 @@ function Canvas() {
             className="canvas-container"
             onClick={() => setCanvasInstance(canvasIds)}
         >
-          <canvas id={canvasIds}/>
+            <canvas id={canvasIds} style={{border: '2px #000 solid'}}/>
         </div>
     ));
   };
 
   return (
-      <div>
-        {renderCanvases()}
-
-        <div onClick={addPaper} className="control">
-          Add Canvas
-        </div>
+      <div style={{margin: 'auto'}}>
+          {renderCanvases()}
+          <button onClick={addPaper} className="control">
+              Add Canvas
+          </button>
       </div>
   );
 }
