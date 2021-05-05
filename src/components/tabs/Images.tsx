@@ -15,8 +15,7 @@ function Images() {
         1000
     );
 
-    const handleSearchImage = (e: any) => {
-        console.log({e});
+    const handleSearchImage = (e: React.ChangeEvent<HTMLInputElement>) => {
         let searchText = e.target.value;
         debouncedSave(searchText);
     };
@@ -33,6 +32,7 @@ function Images() {
             canvas?.add(image);
             canvas?.setActiveObject(image);
             image.center();
+
             // @ts-ignore
             image.scaleToWidth(canvas?.width / 8);
             image.center();
